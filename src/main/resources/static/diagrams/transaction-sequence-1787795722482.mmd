@@ -1,0 +1,25 @@
+sequenceDiagram
+  participant User
+  participant MobileApp as "Mobile Client"
+  participant API
+  participant Auth
+  participant DB
+  participant Analytics as "Analytics Microservice"
+  participant FCM as "Firebase Cloud Messaging"
+
+  User->>MobileApp: Enters workout data
+  MobileApp->>API: POST /workouts with workout data
+  API->>Auth: Validate user token
+  Auth-->>API: Token valid
+  API->>DB: Insert workout record
+  DB-->>API: Confirm insertion
+  API->>Analytics: Trigger analysis for meal plan
+  Analytics->>DB: Query user's workouts and goals
+  DB-->>Analytics: Provide data
+  Analytics-->>API: Return meal plan recommendations
+  API->>DB: Store meal recommendations
+  API-->>MobileApp: Return success + meal recommendations
+  Note over API,MobileApp: Periodically
+  API->>FCM: Send notifications/reminders
+  FCM-->>MobileApp: Push notifications
+  MobileApp-->>User: Display notifications and updated data

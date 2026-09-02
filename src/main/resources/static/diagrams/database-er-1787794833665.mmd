@@ -1,0 +1,87 @@
+erDiagram
+  USERS {
+    int user_id
+    string username
+    string email
+    string hashed_password
+    date created_at
+    date updated_at
+  }
+  FITNESSGOALS {
+    int goal_id
+    int user_id
+    string goal_type
+    float target_value
+    date start_date
+    date end_date
+  }
+  WORKOUTS {
+    int workout_id
+    int user_id
+    date workout_date
+    int workout_duration
+    string mode
+    date created_at
+  }
+  EXERCISES {
+    int exercise_id
+    int workout_id
+    string name
+    int sets
+    int reps
+    float weight
+    int duration
+  }
+  MEALPLANS {
+    int meal_plan_id
+    int user_id
+    date plan_date
+    string dietary_preferences
+    string restrictions
+    date created_at
+  }
+  MEALS {
+    int meal_id
+    int meal_plan_id
+    string meal_type
+    float calories
+    float protein
+    float carbs
+    float fats
+    string ingredients
+  }
+  WORKOUTHISTORY {
+    int history_id
+    int user_id
+    int workout_id
+    string sync_source
+    date recorded_at
+  }
+  NUTRITIONALINTAKE {
+    int intake_id
+    int user_id
+    date date
+    float calories
+    float protein
+    float carbs
+    float fats
+    string source
+  }
+  NOTIFICATIONS {
+    int notification_id
+    int user_id
+    string message
+    string type
+    date sent_at
+    boolean is_read
+  }
+
+  USERS ||--o{ FITNESSGOALS : has
+  USERS ||--o{ WORKOUTS : creates
+  WORKOUTS ||--o{ EXERCISES : includes
+  USERS ||--o{ MEALPLANS : creates
+  MEALPLANS ||--o{ MEALS : contains
+  USERS ||--o{ WORKOUTHISTORY : logs
+  USERS ||--o{ NUTRITIONALINTAKE : logs
+  USERS ||--o{ NOTIFICATIONS : receives
+  WORKOUTS ||--o{ WORKOUTHISTORY : referenced_by

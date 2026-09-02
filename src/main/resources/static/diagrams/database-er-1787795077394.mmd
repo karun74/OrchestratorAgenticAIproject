@@ -1,0 +1,79 @@
+erDiagram
+  USERS {
+    int user_id PK
+    string username
+    string email
+    string hashed_password
+    date date_joined
+  }
+  WORKOUTS {
+    int workout_id PK
+    int user_id FK
+    date workout_date
+    int duration_minutes
+    string notes
+  }
+  EXERCISES {
+    int exercise_id PK
+    string name
+    string description
+    string muscle_group
+  }
+  WORKOUT_EXERCISES {
+    int workout_exercise_id PK
+    int workout_id FK
+    int exercise_id FK
+    int sets
+    int reps
+    float weight
+  }
+  MEAL_PLANS {
+    int meal_plan_id PK
+    int user_id FK
+    date start_date
+    date end_date
+  }
+  MEALS {
+    int meal_id PK
+    int meal_plan_id FK
+    string meal_type
+    int calories
+    string description
+  }
+  DIETARY_RESTRICTIONS {
+    int restriction_id PK
+    int user_id FK
+    string restriction_type
+  }
+  FITNESS_GOALS {
+    int goal_id PK
+    int user_id FK
+    string goal_description
+    date target_date
+    boolean achieved
+  }
+  DEVICE_INTEGRATIONS {
+    int integration_id PK
+    int user_id FK
+    string device_name
+    string access_token
+    string refresh_token
+    date last_sync
+  }
+  NOTIFICATIONS {
+    int notification_id PK
+    int user_id FK
+    string message
+    date sent_at
+    boolean read
+  }
+
+  USERS ||--o{ WORKOUTS : "has"
+  USERS ||--o{ MEAL_PLANS : "has"
+  USERS ||--o{ DIETARY_RESTRICTIONS : "has"
+  USERS ||--o{ FITNESS_GOALS : "has"
+  USERS ||--o{ DEVICE_INTEGRATIONS : "has"
+  USERS ||--o{ NOTIFICATIONS : "receives"
+  WORKOUTS ||--o{ WORKOUT_EXERCISES : "includes"
+  EXERCISES ||--o{ WORKOUT_EXERCISES : "used in"
+  MEAL_PLANS ||--o{ MEALS : "contain"

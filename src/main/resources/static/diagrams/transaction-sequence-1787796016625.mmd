@@ -1,0 +1,28 @@
+sequenceDiagram
+  participant User
+  participant MobileApp
+  participant APIGateway
+  participant WorkoutService
+  participant AIRecommendationService
+  participant DB
+  participant ReminderService
+  participant NotificationSystem
+
+  User->>MobileApp: Log workout data
+  MobileApp->>APIGateway: POST /workouts
+  APIGateway->>WorkoutService: Save workout data
+  WorkoutService->>DB: Insert workout data
+  DB-->>WorkoutService: Acknowledgement
+  WorkoutService-->>APIGateway: Success
+  APIGateway-->>MobileApp: Success response
+
+  MobileApp->>APIGateway: Request personalized workout recommendations
+  APIGateway->>AIRecommendationService: Fetch recommendations
+  AIRecommendationService->>DB: Query user workout history
+  DB-->>AIRecommendationService: User workout data
+  AIRecommendationService-->>APIGateway: Recommendations
+  APIGateway-->>MobileApp: Recommendations
+
+  APIGateway->>ReminderService: Schedule reminders for user
+  ReminderService->>NotificationSystem: Queue notifications
+  NotificationSystem-->>User: Sends reminders/motivational messages

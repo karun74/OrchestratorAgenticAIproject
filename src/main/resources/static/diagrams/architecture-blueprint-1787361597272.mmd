@@ -1,0 +1,7 @@
+erDiagram
+    USERS ||--o{ WORKOUTS : has
+    USERS ||--o{ MEALPLANS : has
+    WORKOUTS ||--|{ WORKOUTEXERCISES : contains
+    EXERCISES ||--|{ WORKOUTEXERCISES : used_in
+    MEALPLANS ||--o{ MEALS : includes
+    USERS ||--o{ USERANALYTICS : generates

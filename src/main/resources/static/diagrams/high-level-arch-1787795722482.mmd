@@ -1,0 +1,9 @@
+graph LR
+  U["Mobile Client (React Native)"] -->|API Requests| API["API Server (Node.js + Express)"]
+  API --> DB["PostgreSQL Database"]
+  API --> ML["Analytics & Meal Plan Microservice (Python)"]
+  API --> FCM["Firebase Cloud Messaging"]
+  ML --> DB
+  FCM --> U
+  API --> Auth["Authentication Service (OAuth 2.0 + JWT)"]
+  U --> Auth

@@ -1,0 +1,43 @@
+graph TD
+  subgraph Frontend
+    A["Mobile App (React Native)"]
+    B["Web App (React)"]
+  end
+
+  subgraph API_Gateway
+    C["API Gateway (Express.js)"]
+  end
+
+  subgraph Core_Services
+    D["User Management Service"]
+    E["Workout Routine Service"]
+    F["Meal Planning Service"]
+    G["AI Recommendation Service (Python ML)"]
+    H["Notification Service (Firebase FCM)"]
+    I["Sync Service (Device & Health APIs)"]
+  end
+
+  subgraph Storage
+    J["PostgreSQL Database"]
+    K["Redis Cache"]
+  end
+
+  %% Frontend to API Gateway
+  A --> C
+  B --> C
+
+  %% API Gateway to Core Services
+  C --> D
+  C --> E
+  C --> F
+  C --> G
+  C --> H
+  C --> I
+
+  %% Core Services to Storage
+  D --> J
+  E --> J
+  F --> J
+  I --> J
+  G --> K
+  H --> K

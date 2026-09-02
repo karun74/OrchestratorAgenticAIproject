@@ -1,0 +1,64 @@
+erDiagram
+  USERS {
+    int id PK
+    string username
+    string email
+    string password_hash
+    string dietary_preferences
+    date created_at
+  }
+  FITNESS_GOALS {
+    int id PK
+    int user_id FK
+    string goal_type
+    float target_value
+    string unit
+    date created_at
+  }
+  WORKOUT_ROUTINES {
+    int id PK
+    int user_id FK
+    date routine_date
+    string workout_type
+    int duration_minutes
+    float calories_burned
+    string notes
+  }
+  MEAL_LOGS {
+    int id PK
+    int user_id FK
+    date log_date
+    string meal_type
+    string ingredients
+    float calories
+    string meal_notes
+  }
+  MEAL_RECOMMENDATIONS {
+    int id PK
+    int user_id FK
+    date recommendation_date
+    string meal_type
+    string recommendation
+  }
+  TIPS_AND_ADJUSTMENTS {
+    int id PK
+    int user_id FK
+    date entry_date
+    string tip_type
+    string description
+  }
+  NOTIFICATIONS {
+    int id PK
+    int user_id FK
+    string notification_type
+    string message
+    date scheduled_time
+    boolean is_sent
+  }
+
+  USERS ||--o{ FITNESS_GOALS: "has"
+  USERS ||--o{ WORKOUT_ROUTINES: "logs"
+  USERS ||--o{ MEAL_LOGS: "records"
+  USERS ||--o{ MEAL_RECOMMENDATIONS: "receives"
+  USERS ||--o{ TIPS_AND_ADJUSTMENTS: "gets"
+  USERS ||--o{ NOTIFICATIONS: "gets"

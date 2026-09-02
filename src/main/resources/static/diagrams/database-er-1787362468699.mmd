@@ -1,0 +1,77 @@
+erDiagram
+  USERS {
+    int user_id PK
+    string email
+    string password_hash
+    date created_at
+  }
+  PROFILES {
+    int profile_id PK
+    int user_id FK
+    string fitness_goals
+    string dietary_preferences
+    date created_at
+  }
+  WORKOUTS {
+    int workout_id PK
+    int profile_id FK
+    string workout_type
+    int duration
+    int calories_burned
+    date workout_date
+    string notes
+  }
+  MEALS {
+    int meal_id PK
+    int profile_id FK
+    date meal_date
+    string meal_time
+    string meal_description
+    int calories
+    float protein
+    float carbs
+    float fats
+  }
+  FOODS {
+    int food_id PK
+    string name
+    int calories
+    float protein
+    float carbs
+    float fats
+  }
+  MEAL_FOODS {
+    int meal_food_id PK
+    int meal_id FK
+    int food_id FK
+    float quantity
+  }
+  RECIPES {
+    int recipe_id PK
+    string name
+    string dietary_restrictions
+    string ingredient_list
+    string instructions
+  }
+  NOTIFICATIONS {
+    int notification_id PK
+    int user_id FK
+    string notification_type
+    string message
+    date send_time
+    boolean is_sent
+  }
+  ACHIEVEMENTS {
+    int achievement_id PK
+    int user_id FK
+    string description
+    date achieved_at
+  }
+
+  USERS ||--o{ PROFILES : has
+  PROFILES ||--o{ WORKOUTS : logs
+  PROFILES ||--o{ MEALS : records
+  MEALS ||--o{ MEAL_FOODS : contains
+  FOODS ||--o{ MEAL_FOODS : used_in
+  USERS ||--o{ NOTIFICATIONS : receives
+  USERS ||--o{ ACHIEVEMENTS : earns

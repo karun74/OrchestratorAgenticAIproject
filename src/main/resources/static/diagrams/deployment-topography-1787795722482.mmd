@@ -1,0 +1,13 @@
+graph TD
+  subgraph "AWS Production Cloud VPC"
+    EC2_API["EC2 Instance (API Server Node.js)"]
+    RDS_DB[("RDS PostgreSQL Managed DB")]
+    ECS_ML["ECS Fargate (Python Analytics Microservice)"]
+    S3_Assets["S3 Bucket (Static Assets)"]
+    FCM_Service["Firebase Cloud Messaging Service"]
+
+    EC2_API --> RDS_DB
+    ECS_ML --> RDS_DB
+    EC2_API --> FCM_Service
+    EC2_API --> S3_Assets
+  end

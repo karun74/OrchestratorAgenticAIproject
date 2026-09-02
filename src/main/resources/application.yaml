@@ -1,0 +1,46 @@
+server:
+  # Ensure your server runs on the exact port your Dockerfile / Web Adapter expects
+  servlet:
+    context-path: /prod
+  port: 8080
+logging:
+  # FIX: Prevent Spring from crashing trying to write local log files to a read-only container root
+  file:
+    path: /tmp
+  level:
+    root: INFO
+    org:
+      springframework:
+        web:
+          client:
+            RestClient: DEBUG
+    # Enable debugging for your controller to see incoming requests in CloudWatch
+    com.yourproject.package: DEBUG 
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # Useful for Lambda Web Adapter health tracking
+        include: health,info
+spring:
+  config:
+    import: "aws-secretsmanager:OPENAI_API_KEY"
+  jackson:
+    default-property-inclusion: non_null
+  main:
+    allow-circular-references: true
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          model: gpt-4o-mini
+
+# 🚀 ADD THIS EMBABEL CONFIGURATION BLOCK:
+embabel:
+  agent:
+    platform:
+      models:
+        openai:
+          api-key: ${OPENAI_API_KEY}

@@ -1,0 +1,35 @@
+graph TD
+  subgraph Client Tier
+    A["Mobile App (React Native)"]
+  end
+
+  subgraph API Gateway / Controller Layer
+    B["API Gateway (Node.js Express)"]
+  end
+
+  subgraph Core Services
+    C1["User Management Service"]
+    C2["Workout & Meal Management Service"]
+    C3["AI Analysis & Recommendations Service (Python FastAPI)"]
+    C4["Notification Service"]
+    C5["Device Integration Service"]
+    C6["Privacy & Security Service"]
+  end
+
+  subgraph Storage
+    D["PostgreSQL Database"]
+  end
+
+  A --> B
+  B --> C1
+  B --> C2
+  B --> C3
+  B --> C4
+  B --> C5
+  B --> C6
+  C1 --> D
+  C2 --> D
+  C4 --> D
+  C5 --> D
+  C6 --> D
+  C3 --> D

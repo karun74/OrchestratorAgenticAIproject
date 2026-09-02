@@ -1,0 +1,94 @@
+erDiagram
+  USERS {
+    int id PK
+    string username
+    string email
+    string password_hash
+    date created_at
+  }
+  FITNESS_GOALS {
+    int id PK
+    int user_id FK
+    string goal_type
+    float target_value
+    date created_at
+  }
+  WORKOUTS {
+    int id PK
+    int user_id FK
+    date workout_date
+    string workout_type
+    int duration
+    float calories_burned
+    string notes
+    date created_at
+  }
+  WORKOUT_EXERCISES {
+    int id PK
+    int workout_id FK
+    string exercise_name
+    int sets
+    int reps
+    float weight
+    date created_at
+  }
+  MEALS {
+    int id PK
+    int user_id FK
+    date meal_date
+    string meal_type
+    float calories
+    string notes
+    date created_at
+  }
+  FOOD_ITEMS {
+    int id PK
+    int meal_id FK
+    string name
+    float quantity
+    string unit
+    float calories
+    date created_at
+  }
+  DEVICES {
+    int id PK
+    int user_id FK
+    string device_name
+    string device_type
+    boolean connected
+    date last_sync
+    date created_at
+  }
+  NOTIFICATIONS {
+    int id PK
+    int user_id FK
+    string notification_type
+    string message
+    date scheduled_time
+    boolean read
+    date created_at
+  }
+  PRIVACY_SETTINGS {
+    int id PK
+    int user_id FK
+    boolean data_sharing_consent
+    boolean anonymize_data
+    date created_at
+  }
+  AI_RECOMMENDATIONS {
+    int id PK
+    int user_id FK
+    string recommendation_type
+    string content
+    date created_at
+  }
+
+  USERS ||--o{ FITNESS_GOALS : has
+  USERS ||--o{ WORKOUTS : has
+  WORKOUTS ||--o{ WORKOUT_EXERCISES : includes
+  USERS ||--o{ MEALS : has
+  MEALS ||--o{ FOOD_ITEMS : includes
+  USERS ||--o{ DEVICES : owns
+  USERS ||--o{ NOTIFICATIONS : receives
+  USERS ||--|| PRIVACY_SETTINGS : configures
+  USERS ||--o{ AI_RECOMMENDATIONS : receives

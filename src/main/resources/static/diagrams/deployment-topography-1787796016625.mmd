@@ -1,0 +1,23 @@
+graph TD
+  subgraph "AWS Production Cloud VPC"
+    subgraph EKS_Cluster
+      ApiNode["Kubernetes Worker Pod (API Node - Spring Boot)"]
+      AiNode["Kubernetes Worker Pod (AI Recommendation Service)"]
+      WearableNode["Kubernetes Worker Pod (Wearable Integration Service)"]
+      ReminderNode["Kubernetes Worker Pod (Reminder & Notification Service)"]
+    end
+
+    Replica["RDS PostgreSQL Main Instance"]
+    RedisCache["Elasticache Redis Cluster"]
+    S3Bucket["S3 Bucket for Static Assets & Backups"]
+    SNSTopic["SNS Topic for Notifications"]
+  end
+
+  ApiNode --> Replica
+  ApiNode --> RedisCache
+  AiNode --> Replica
+  WearableNode --> Replica
+  ReminderNode --> Replica
+  ReminderNode -.-> SNSTopic
+  ApiNode -.-> S3Bucket
+  AiNode -.-> S3Bucket

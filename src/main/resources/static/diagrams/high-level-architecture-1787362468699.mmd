@@ -1,0 +1,41 @@
+graph TD
+  subgraph Frontend
+    A["Mobile App (React Native)"]
+    B["Web App (React)"]
+  end
+
+  subgraph BackendAPI
+    C["API Gateway (Express.js)"]
+    D["User Profile Service"]
+    E["Workout Logging Service"]
+    F["Meal & Nutrition Service"]
+    G["AI Personalization Service (Python/TensorFlow)"]
+    H["Notification Service (FCM)"]
+    I["Analytics Service"]
+  end
+
+  subgraph Storage
+    J["PostgreSQL Database"]
+  end
+
+  subgraph External
+    K["Food Scan ML Model (TensorFlow Lite / ML Kit)"]
+  end
+
+  A --> C
+  B --> C
+  C --> D
+  C --> E
+  C --> F
+  C --> G
+  C --> H
+  C --> I
+
+  D --> J
+  E --> J
+  F --> J
+  G --> J
+  H --> J
+  I --> J
+
+  F --> K

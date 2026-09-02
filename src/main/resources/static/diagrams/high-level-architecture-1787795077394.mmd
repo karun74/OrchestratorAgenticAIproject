@@ -1,0 +1,30 @@
+graph TD
+  subgraph Frontend
+    A["Mobile App (React Native)"]
+    B["Web Dashboard (React)"]
+  end
+
+  subgraph Backend
+    direction TB
+    C["API Gateway (Node.js/Express)"]
+    D["Core Services"]
+    AI["AI Services (Python ML Models)"]
+    WEAR["Wearable Integration Service"]
+    NOTIF["Notification Service (Firebase Cloud Messaging)"]
+  end
+
+  subgraph Storage
+    DB["PostgreSQL Database"]
+    CACHE["Redis Cache"]
+  end
+
+  A -->|REST API| C
+  B -->|REST API| C
+  C --> D
+  D --> DB
+  D --> CACHE
+  D --> AI
+  D --> WEAR
+  D --> NOTIF
+  WEAR --> DB
+  NOTIF --> DB

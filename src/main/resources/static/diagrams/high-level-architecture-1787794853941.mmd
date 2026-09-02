@@ -1,0 +1,34 @@
+graph TD
+  subgraph Frontend
+    A["Mobile App (React Native)"]
+    B["Web Dashboard (React.js)"]
+  end
+
+  subgraph "API Gateway / Controller"
+    C["API Gateway (Express.js REST API)"]
+  end
+
+  subgraph "Core Backend Services"
+    D["Workout Analysis Service (Python ML)"]
+    E["Meal Plan Generator (Python ML)"]
+    F["Notification Service (FCM)"]
+    G["Wearable Integration Service"]
+    H["User Management & Authentication (OAuth 2.0 JWT)"]
+  end
+
+  subgraph Storage
+    I["PostgreSQL DB"]
+  end
+
+  A --> C
+  B --> C
+  C --> D
+  C --> E
+  C --> F
+  C --> G
+  C --> H
+  D --> I
+  E --> I
+  F --> I
+  G --> I
+  H --> I

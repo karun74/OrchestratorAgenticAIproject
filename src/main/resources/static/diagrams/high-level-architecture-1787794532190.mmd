@@ -1,0 +1,41 @@
+graph TD
+  subgraph "Client Tier"
+    A["Mobile App (React Native)"]
+  end
+
+  subgraph "API Gateway & Controllers"
+    B["API Gateway (Express.js)"]
+  end
+
+  subgraph "Core Service Components"
+    C1["User Management Service"]
+    C2["Workout Routine Service"]
+    C3["Exercise Performance Service"]
+    C4["Meal Planning Service"]
+    C5["Notification Service"]
+    C6["Wearable Integration Service"]
+    C7["AI Chatbot Service"]
+    C8["Analytics Service"]
+  end
+
+  subgraph "Database & Storage"
+    D[("PostgreSQL Database")]
+  end
+
+  A --> B
+  B --> C1
+  B --> C2
+  B --> C3
+  B --> C4
+  B --> C5
+  B --> C6
+  B --> C7
+  B --> C8
+  C1 --> D
+  C2 --> D
+  C3 --> D
+  C4 --> D
+  C5 --> D
+  C6 --> D
+  C7 --> D
+  C8 --> D

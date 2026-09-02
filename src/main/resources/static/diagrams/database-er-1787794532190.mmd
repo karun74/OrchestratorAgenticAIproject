@@ -1,0 +1,105 @@
+erDiagram
+  USERS {
+    int id PK
+    string username
+    string email
+    string hashed_password
+    date created_at
+  }
+
+  FITNESS_GOALS {
+    int id PK
+    int user_id FK
+    string goal_type
+    float target_value
+    date created_at
+  }
+
+  WORKOUT_ROUTINES {
+    int id PK
+    int user_id FK
+    string name
+    date created_at
+  }
+
+  EXERCISES {
+    int id PK
+    int workout_routine_id FK
+    string name
+    int order_in_routine
+  }
+
+  EXERCISE_PERFORMANCES {
+    int id PK
+    int exercise_id FK
+    int reps
+    int sets
+    int duration
+    date performed_at
+  }
+
+  MEAL_PLANS {
+    int id PK
+    int user_id FK
+    string name
+    string dietary_preferences
+    string allergies
+    int fitness_goal_id FK
+    date last_updated
+  }
+
+  MEALS {
+    int id PK
+    int meal_plan_id FK
+    string name
+    float calories
+    float proteins
+    float carbs
+    float fats
+    date scheduled_date
+  }
+
+  WEARABLE_DEVICES {
+    int id PK
+    int user_id FK
+    string device_type
+    string device_identifier
+    date connected_at
+  }
+
+  NOTIFICATIONS {
+    int id PK
+    int user_id FK
+    string notification_type
+    string message
+    date scheduled_at
+    boolean sent
+  }
+
+  CHATBOT_SESSIONS {
+    int id PK
+    int user_id FK
+    date session_start
+    date session_end
+  }
+
+  WORKOUT_LOGS {
+    int id PK
+    int user_id FK
+    int workout_routine_id FK
+    date log_date
+    string notes
+  }
+
+  USERS ||--o{ FITNESS_GOALS : "has"
+  USERS ||--o{ WORKOUT_ROUTINES : "creates"
+  WORKOUT_ROUTINES ||--o{ EXERCISES : "contains"
+  EXERCISES ||--o{ EXERCISE_PERFORMANCES : "records"
+  USERS ||--o{ MEAL_PLANS : "has"
+  MEAL_PLANS ||--o{ MEALS : "includes"
+  FITNESS_GOALS ||--o{ MEAL_PLANS : "defines"
+  USERS ||--o{ WEARABLE_DEVICES : "connects"
+  USERS ||--o{ NOTIFICATIONS : "receives"
+  USERS ||--o{ CHATBOT_SESSIONS : "starts"
+  USERS ||--o{ WORKOUT_LOGS : "maintains"
+  WORKOUT_ROUTINES ||--o{ WORKOUT_LOGS : "logged in"

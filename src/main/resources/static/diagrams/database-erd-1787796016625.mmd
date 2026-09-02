@@ -1,0 +1,79 @@
+erDiagram
+  users {
+    int id
+    string username
+    string email
+    string hashed_password
+    date created_at
+  }
+  workouts {
+    int id
+    int user_id
+    date workout_date
+    string workout_type
+    int duration_minutes
+    int calories_burned
+    string notes
+    date created_at
+  }
+  meal_preferences {
+    int id
+    int user_id
+    string allergies
+    string dislikes
+    string dietary_preferences
+    date created_at
+  }
+  meals {
+    int id
+    string name
+    string description
+    int calories
+    float protein
+    float fat
+    float carbohydrate
+  }
+  meal_plans {
+    int id
+    int user_id
+    date plan_date
+    int meal_id
+    string meal_type
+    date created_at
+  }
+  workout_recommendations {
+    int id
+    int user_id
+    string recommended_workout
+    date generated_at
+  }
+  calorie_logs {
+    int id
+    int user_id
+    date log_date
+    int calories_intake
+    int calories_burned
+  }
+  reminders {
+    int id
+    int user_id
+    string reminder_type
+    string message
+    date send_time
+    boolean sent
+  }
+  wearable_syncs {
+    int id
+    int user_id
+    string device_id
+    date last_sync
+  }
+
+  users ||--o{ workouts : "creates"
+  users ||--o{ meal_preferences : "has"
+  users ||--o{ meal_plans : "receives"
+  meals ||--o{ meal_plans : "assigned to"
+  users ||--o{ workout_recommendations : "gets"
+  users ||--o{ calorie_logs : "logs"
+  users ||--o{ reminders : "receives"
+  users ||--o{ wearable_syncs : "syncs with"

@@ -1,0 +1,55 @@
+erDiagram
+  USERS {
+    int user_id PK
+    string username
+    string email
+    string password_hash
+    string role
+    date created_at
+  }
+  WORKOUT_ROUTINES {
+    int workout_id PK
+    int user_id FK
+    date workout_date
+    string workout_data
+    date created_at
+  }
+  MEAL_PLANS {
+    int meal_plan_id PK
+    int user_id FK
+    date plan_date
+    string dietary_preferences
+    string meals
+    date created_at
+  }
+  NOTIFICATIONS {
+    int notification_id PK
+    int user_id FK
+    string notification_type
+    string message
+    date notified_at
+    date created_at
+  }
+  WEARABLE_DATA {
+    int data_id PK
+    int user_id FK
+    string device_type
+    string data
+    date recorded_at
+    date created_at
+  }
+  AI_ALGORITHM_UPDATES {
+    int update_id PK
+    int nutritionist_id FK
+    string algorithm_type
+    string update_description
+    string update_data
+    date updated_at
+  }
+
+  USERS ||--o{ WORKOUT_ROUTINES : has
+  USERS ||--o{ MEAL_PLANS : has
+  USERS ||--o{ NOTIFICATIONS : receives
+  USERS ||--o{ WEARABLE_DATA : collects
+  USERS ||--o{ AI_ALGORITHM_UPDATES : makes
+  USERS ||--o{ USERS : coaches
